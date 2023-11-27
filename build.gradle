@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version"$springBootVersion"
+	id 'io.spring.dependency-management' version"$springDependencyManagementVersion"
+}
+
+group = 'portal'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'io.minio:minio:8.4.3'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.0.4'
+	implementation 'net.logstash.logback:logstash-logback-encoder:6.4'
+	implementation "io.jsonwebtoken:jjwt-api:$jsonWebTokenVersion"
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:$jsonWebTokenVersion"
+	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jsonWebTokenVersion"
+	//implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2:'
+	implementation "org.mapstruct:mapstruct:$mapStructVersion"
+	annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation "org.testcontainers:minio:$testcontainersVersion"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootBuildImage{
+	imageName = 'news/news_image'
+}
