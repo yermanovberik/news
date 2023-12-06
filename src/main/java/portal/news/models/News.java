@@ -26,15 +26,16 @@ public class News {
     @Column(name = "tittle")
     private String tittle;
 
-    @Column(name = "newstext")
+    @Column(name = "news_text")
     private String newsText;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
 
-    @Column(name = "publicationdate")
+    @Column(name = "publication_date")
     private LocalDateTime publicationDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-
 }

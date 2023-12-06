@@ -11,6 +11,18 @@ java {
 	sourceCompatibility = '17'
 }
 
+springBoot {
+	mainClass = 'portal.news.NewsApplication'
+}
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'portal.news.NewsApplication'
+		)
+	}
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -22,6 +34,9 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.sun.mail:javax.mail:1.6.2'
+	implementation 'com.rabbitmq:amqp-client:5.14.0'
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'io.minio:minio:8.4.3'
@@ -30,7 +45,6 @@ dependencies {
 	implementation "io.jsonwebtoken:jjwt-api:$jsonWebTokenVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:$jsonWebTokenVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jsonWebTokenVersion"
-	//implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -38,12 +52,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2:'
 	implementation "org.mapstruct:mapstruct:$mapStructVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation "org.testcontainers:minio:$testcontainersVersion"

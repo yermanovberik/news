@@ -43,7 +43,6 @@ public class JwtFactory {
             UserDetails userDetails,
             long expiration
     ) {
-        System.out.println(userDetails.getUsername());
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

@@ -2,6 +2,7 @@ package portal.news.services.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import portal.news.dto.translate.TranslateNewsDto;
 import portal.news.feign.YandexRemoteClient;
 import portal.news.requests.YandexRequest;
 import portal.news.requests.YandexResponse;
@@ -18,12 +19,12 @@ public class YandexTranslationService implements TranslationService {
     private final YandexRemoteClient yandexRemoteClient;
 
     @Override
-    public List<String> translate(String fromLang, String toLang, String data) {
+    public List<TranslateNewsDto> translate(String fromLang, String toLang, String data) {
         return yandexRemoteClient
                 .fetchTranslate(new YandexRequest.Request(fromLang, toLang, List.of(data)))
                 .translations()
                 .stream()
-                .map(YandexResponse.ResponseRow::text)
+                .map(responseRow -> new TranslateNewsDto(responseRow.text()))
                 .collect(Collectors.toList());
     }
 }

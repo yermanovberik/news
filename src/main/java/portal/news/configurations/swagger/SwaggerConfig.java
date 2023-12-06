@@ -43,8 +43,8 @@ public class SwaggerConfig {
                 )
                 .info(
                         new Info()
-                                .title("CTF platform")
-                                .description("A platform for conducting team Olympiads on computer networks")
+                                .title("News portal")
+                                .description("Diploma project for course justcode")
                                 .version("1.0.0")
                 );
     }

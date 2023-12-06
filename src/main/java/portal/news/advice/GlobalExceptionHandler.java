@@ -134,7 +134,6 @@ public class GlobalExceptionHandler {
                 "Client sent an invalid argument value in the body and received a response: {}",
                 errorMessage
         );
-
         return apiExceptionResponseFactory.createApiExceptionResponseDto(
                 HttpStatus.BAD_REQUEST,
                 errorMessageOrDefault

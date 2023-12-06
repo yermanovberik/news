@@ -21,14 +21,13 @@ public class Notification {
     private Long id;
 
 
-    @Column(name = "notificationText")
+    @Column(name = "notification_text")
     private String notificationText;
 
     @Column(name = "user_email")
     private String userEmail;
 
-
-    @Column(name = "notificationCreatedDate")
+    @Column(name = "notification_created_date")
     private LocalDateTime notificationCreatedDate;
 
 }

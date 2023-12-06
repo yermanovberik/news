@@ -19,7 +19,7 @@ public class SubscriptionController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SubscriptionResponseDto getEventById(
+    public SubscriptionResponseDto getSubscriptionById(
             @PathVariable @Positive(message = "Id must be greater than zero") long id
     ) {
         return service.getById(id);
@@ -33,6 +33,15 @@ public class SubscriptionController {
         return service.create(requestDto);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public SubscriptionResponseDto updateSubscription(
+            @PathVariable @Positive(message = "Id must be positive") long id,
+            @RequestBody @Valid SubscriptionRequestDto requestDto
+    ) {
+        return service.update(id, requestDto);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSubscription(
@@ -40,5 +49,7 @@ public class SubscriptionController {
     ) {
         service.delete(id);
     }
+
+
 
 }

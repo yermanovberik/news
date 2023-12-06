@@ -5,7 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import portal.news.dto.avatar.AvatarResponseDto;
 import portal.news.dto.user.UserRequestDto;
 import portal.news.dto.user.UserResponseDto;
 import portal.news.services.UserService;
@@ -51,11 +54,18 @@ public class UserController {
         userService.delete(id);
     }
 
+    @PutMapping("/update-subscription/{email}")
+    public String updateSubscriptionStatus(@PathVariable String email) {
+        System.out.println("UserController.updateSubscriptionStatus");
+        userService.updateSubscriptionStatus(email);
+        return "Subscription status updated successfully!";
+    }
 
-
-
-
-
-
-
+    @PostMapping("/createWithAvatar")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AvatarResponseDto createUserWithAvatar(
+            @RequestParam("email") String email,
+            @RequestParam("avatarFile") MultipartFile avatarFile) {
+        return userService.createUserWithAvatar(email, avatarFile);
+    }
 }

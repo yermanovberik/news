@@ -43,8 +43,8 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "avatar")
-    private String avataxwr;
+    @Column(name = "avatar_path")
+    private String avatarPath;
 
     @Column(name = "subscription_paid")
     private boolean subscription_paid;

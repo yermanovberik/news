@@ -1,10 +1,9 @@
 package portal.news.services.implementation;
-/*
+
 import io.minio.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import portal.news.exceptions.entity.EntityNotFoundException;
 import portal.news.exceptions.server.InternalServerErrorException;
@@ -13,23 +12,21 @@ import portal.news.services.StorageService;
 import java.io.InputStream;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
+@Service
 public class MinioService implements StorageService {
+
     private final MinioClient minioClient;
-
-    @Value("${minio.bucket-name}")
-    private String bucketName;
-
 
     @Override
     public String uploadFile(String filePath, InputStream inputStream) {
         try {
             log.info("Uploading file with file name: {}", filePath);
+
             ObjectWriteResponse objectWriteResponse = minioClient.putObject(
                     PutObjectArgs.builder()
                             .stream(inputStream, inputStream.available(), -1)
-                            .bucket(bucketName)
+                            .bucket("news")
                             .object(filePath)
                             .build()
             );
@@ -53,7 +50,7 @@ public class MinioService implements StorageService {
 
             GetObjectResponse getObjectResponse = minioClient.getObject(
                     GetObjectArgs.builder()
-                            .bucket(bucketName)
+                            .bucket("news")
                             .object(filePath)
                             .build()
             );
@@ -77,11 +74,11 @@ public class MinioService implements StorageService {
 
             ObjectWriteResponse objectWriteResponse = minioClient.copyObject(
                     CopyObjectArgs.builder()
-                            .bucket(bucketName)
+                            .bucket("news")
                             .object(oldPath)
                             .source(
                                     CopySource.builder()
-                                            .bucket(bucketName)
+                                            .bucket("news")
                                             .object(newPath)
                                             .build()
                             )
@@ -101,7 +98,7 @@ public class MinioService implements StorageService {
     }
 
     @Override
-    public void deleteFile(String path) {
+    public void deleteFile(String path)  {
         try {
             throwExceptionIfFileDoesNotExists(path);
 
@@ -109,7 +106,7 @@ public class MinioService implements StorageService {
 
             minioClient.removeObject(
                     RemoveObjectArgs.builder()
-                            .bucket(bucketName)
+                            .bucket("news")
                             .object(path)
                             .build()
             );
@@ -125,7 +122,7 @@ public class MinioService implements StorageService {
     private void throwExceptionIfFileDoesNotExists(String fileName) throws Exception {
         StatObjectResponse statObjectResponse = minioClient.statObject(
                 StatObjectArgs.builder()
-                        .bucket(bucketName)
+                        .bucket("news")
                         .object(fileName)
                         .build()
         );
@@ -137,6 +134,7 @@ public class MinioService implements StorageService {
 
     @PostConstruct
     private void createBucketIfDoesNotExists() throws Exception {
+        String bucketName ="news";
 
         boolean isBucketExists = minioClient.bucketExists(
                 BucketExistsArgs.builder()
@@ -155,4 +153,3 @@ public class MinioService implements StorageService {
         }
     }
 }
-*/

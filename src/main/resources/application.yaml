@@ -1,4 +1,12 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 5MB
+      max-request-size: 10MB
   datasource:
     url: jdbc:postgresql://localhost:5432/news
     username: postgres
@@ -18,18 +26,21 @@ spring:
     hibernate:
       ddl-auto: update
 
+
+
+yandex:
+  key: AQVNx2ftCoiiO9jQPe-NYuJGrxnqMURC2kXayxY4
+
+logging:
+  level:
+    com.example.yt: DEBUG
+
+
 minio:
   bucket-name: news
   endpoint: http://localhost:9000
   access-key: minioadmin
   secret-key: minioadmin
-
-yandex:
-  key:
-
-logging:
-  level:
-    com.example.yt:
 
 springdoc:
   swagger-ui:
